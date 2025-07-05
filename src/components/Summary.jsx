@@ -1,129 +1,3 @@
-// import { useState, useEffect } from "react";
-
-// export default function QuizSummaryPage() {
-//     const [quizResults, setQuizResults] = useState([]);
-//     const [expandedIndex, setExpandedIndex] = useState(null);
-
-//     useEffect(() => {
-//         const stored = JSON.parse(localStorage.getItem("quizResults")) || [];
-//         setQuizResults(stored.reverse());
-//     }, []);
-
-//     const toggleExpand = (index) => {
-//         setExpandedIndex(expandedIndex === index ? null : index);
-//     };
-
-//     return (
-//         <div className="w-screen h-screen bg-gradient-to-br from-black via-zinc-900 to-blue-900 text-white p-6 overflow-y-auto">
-//             <h1 className="text-3xl font-bold mb-6 text-center text-blue-400">
-//                 📊 Quiz Summary
-//             </h1>
-
-//             <div className="mb-6 bg-zinc-800 border border-zinc-700 p-4 rounded-lg text-sm max-w-3xl mx-auto">
-//                 <div className="flex justify-between items-center">
-//                     <div className="flex gap-2 items-center">
-//                         <div className="w-4 h-4 rounded bg-green-700 border border-green-400" />
-//                         <span>✅ Correct Answer</span>
-//                     </div>
-//                     <div className="flex gap-2 items-center">
-//                         <div className="w-4 h-4 rounded bg-red-800 border border-red-400" />
-//                         <span>❌ Wrong Answer</span>
-//                     </div>
-//                 </div>
-//             </div>
-
-//             {quizResults.length === 0 ? (
-//                 <p className="text-center text-gray-400">No quiz results found.</p>
-//             ) : (
-//                 quizResults.map((result, index) => (
-//                     <div
-//                         key={index}
-//                         className="bg-zinc-800 border border-zinc-700 rounded-lg p-4 mb-6 shadow-md"
-//                     >
-//                         <div className="flex justify-between items-center flex-wrap">
-//                             <div>
-//                                 <h2 className="text-xl font-bold text-blue-300">
-//                                     {result.topic} ({result.difficulty})
-//                                 </h2>
-//                                 <p className="text-sm text-gray-400 mt-1">
-//                                     📅 {result.date}
-//                                 </p>
-//                             </div>
-//                             <div className="text-right space-y-1">
-//                                 <p className="text-lg">
-//                                     📝 Score:{" "}
-//                                     <span className="text-green-400 font-semibold">
-//                                         {result.score}/{result.total}
-//                                     </span>
-//                                 </p>
-//                                 <p className="text-sm text-yellow-300">
-//                                     ⏱ Total Time: {result.totalTimeTaken ?? 0}s
-//                                 </p>
-//                                 <button
-//                                     onClick={() => toggleExpand(index)}
-//                                     className="px-4 py-1 bg-blue-600 hover:bg-blue-700 text-black rounded font-bold"
-//                                 >
-//                                     {expandedIndex === index ? "Hide Details" : "View Details"}
-//                                 </button>
-//                             </div>
-//                         </div>
-
-//                         {expandedIndex === index && result.details && (
-//                             <div className="mt-6 space-y-6">
-//                                 {result.details.map((q, i) => {
-//                                     const correctIndex = ["A", "B", "C", "D"].indexOf(
-//                                         q.correctAnswer?.charAt(0)
-//                                     );
-//                                     const selectedIndex = ["A", "B", "C", "D"].indexOf(
-//                                         q.selectedAnswer?.charAt(0)
-//                                     );
-
-//                                     return (
-//                                         <div
-//                                             key={i}
-//                                             className="p-4 bg-zinc-900 rounded border border-zinc-700"
-//                                         >
-//                                             <p className="text-md font-semibold mb-3">
-//                                                 {i + 1}. {q.question}
-//                                             </p>
-
-//                                             {q.options.map((option, idx) => {
-//                                                 const optionLabel = ["A", "B", "C", "D"][idx];
-//                                                 const isCorrect = correctIndex === idx;
-//                                                 const isSelected = selectedIndex === idx;
-
-//                                                 let style = "bg-zinc-800";
-//                                                 if (isCorrect && isSelected) {
-//                                                     style = "bg-green-700 border-green-400";
-//                                                 } else if (isCorrect) {
-//                                                     style = "bg-green-800 border-green-400";
-//                                                 } else if (isSelected) {
-//                                                     style = "bg-red-800 border-red-400";
-//                                                 }
-
-//                                                 return (
-//                                                     <div
-//                                                         key={idx}
-//                                                         className={`p-2 rounded border mb-2 ${style}`}
-//                                                     >
-//                                                         {option}
-//                                                     </div>
-//                                                 );
-//                                             })}
-//                                         </div>
-//                                     );
-//                                 })}
-//                             </div>
-//                         )}
-//                     </div>
-//                 ))
-//             )}
-//         </div>
-//     );
-// }
-
-
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -156,7 +30,7 @@ export default function QuizSummaryPage() {
         if (sortBy === "Score") {
             filtered.sort((a, b) => b.score - a.score);
         } else if (sortBy === "Oldest") {
-            filtered.reverse(); // since original is reversed
+            filtered.reverse();
         }
 
         setFilteredResults(filtered);
@@ -189,7 +63,7 @@ export default function QuizSummaryPage() {
                 </div>
             </div>
 
-            {/* Filter and Sort */}
+            {/* Filters */}
             <div className="flex flex-wrap gap-4 justify-center mb-6">
                 <select
                     value={filterTopic}
@@ -228,16 +102,21 @@ export default function QuizSummaryPage() {
                         key={index}
                         className="bg-zinc-800 border border-zinc-700 rounded-lg p-4 mb-6 shadow-md"
                     >
-                        <div className="flex justify-between items-start flex-wrap gap-4">
+                        {/* Top section: topic/date and score/time */}
+                        <div className="flex flex-col md:flex-row md:justify-between gap-2">
+                            {/* Left: topic and date */}
                             <div>
                                 <h2 className="text-xl font-bold text-blue-300">
-                                    {result.topic} ({result.difficulty})
+                                    {result.topic} ({result.difficulty}) {result.isRetake ? <span className="text-yellow-400">(Retaken)</span> : null}
                                 </h2>
+
                                 <p className="text-sm text-gray-400 mt-1">
                                     📅 {result.date}
                                 </p>
                             </div>
-                            <div className="text-right space-y-1">
+
+                            {/* Right: score and time */}
+                            <div className="md:text-right">
                                 <p className="text-lg">
                                     📝 Score:{" "}
                                     <span className="text-green-400 font-semibold">
@@ -247,31 +126,35 @@ export default function QuizSummaryPage() {
                                 <p className="text-sm text-yellow-300">
                                     ⏱ Total Time: {result.totalTime || result.totalTimeTaken || 0}s
                                 </p>
-                                <div className="flex gap-2 justify-end">
-                                    <button
-                                        onClick={() => toggleExpand(index)}
-                                        className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-black rounded text-sm font-bold"
-                                    >
-                                        {expandedIndex === index ? "Hide Details" : "View Details"}
-                                    </button>
-                                    <button
-                                        onClick={() =>
-                                            navigate("/quiz", {
-                                                state: {
-                                                    topic: result.topic,
-                                                    difficulty: result.difficulty,
-                                                    questionCount: result.total,
-                                                },
-                                            })
-                                        }
-                                        className="px-3 py-1 bg-purple-500 hover:bg-purple-600 text-black rounded text-sm font-bold"
-                                    >
-                                        Retake
-                                    </button>
-                                </div>
                             </div>
                         </div>
 
+                        {/* Buttons section */}
+                        <div className="flex flex-col sm:flex-row sm:justify-end gap-2 mt-4">
+                            <button
+                                onClick={() => toggleExpand(index)}
+                                className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-black rounded text-sm font-bold w-full sm:w-auto"
+                            >
+                                {expandedIndex === index ? "Hide Details" : "View Details"}
+                            </button>
+                            <button
+                                onClick={() =>
+                                    navigate("/retake", {
+                                        state: {
+                                            questions: result.details,
+                                            topic: result.topic,
+                                            difficulty: result.difficulty,
+                                        },
+                                    })
+                                }
+                                className="px-3 py-1 bg-purple-500 hover:bg-purple-600 text-black rounded text-sm font-bold w-full sm:w-auto"
+                            >
+                                Retake
+                            </button>
+
+                        </div>
+
+                        {/* Details section */}
                         {expandedIndex === index && result.details && (
                             <div className="mt-6 space-y-6">
                                 {result.details.map((q, i) => {

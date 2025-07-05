@@ -8,6 +8,7 @@ import ResetPasswordPage from './components/ResetPassWord';
 import QuizPage from './components/QuizPage';
 import Summary from './components/Summary';
 import NotFound from './components/PageNotFound';
+import RetakeQuiz from './components/RetakePage';
 
 
 
@@ -15,7 +16,7 @@ import NotFound from './components/PageNotFound';
 
 function App() {
   const isLoggedIn = localStorage.getItem('isLoggedIn');
-  console.log("djdjdjdjd", typeof (isLoggedIn))
+  console.log("djdjdjdjd", isLoggedIn)
   return (
     <div className='w-full'>
       <Routes>
@@ -27,6 +28,7 @@ function App() {
         <Route path="/resetpassword" element={isLoggedIn == 'true' ? <HomePage /> : <ResetPasswordPage />} />
         <Route path="/quiz" element={<QuizPage />} />
         <Route path="/summary" element={<Summary />} />
+        <Route path="/retake" element={<RetakeQuiz />} />
       </Routes>
     </div>
   )

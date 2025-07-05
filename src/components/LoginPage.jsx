@@ -95,13 +95,12 @@ export default function LoginPage() {
                         Sign in with Google
                     </button> */}
                     <GoogleLogin
+
                         onSuccess={(credentialResponse) => {
                             console.log(credentialResponse)
                             console.log(jwtDecode(credentialResponse.credential))
 
                             const credential = jwtDecode(credentialResponse.credential)
-
-
 
                             const userData = {
                                 fullName: credential.name,

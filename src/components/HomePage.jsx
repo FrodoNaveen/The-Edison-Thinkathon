@@ -1,7 +1,7 @@
 
 
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function HomePage() {
     const navigate = useNavigate();
@@ -51,6 +51,7 @@ export default function HomePage() {
 
     const handleLogout = () => {
         localStorage.setItem('isLoggedIn', false);
+        window.reload();
         navigate('/login');
     };
 
@@ -74,29 +75,57 @@ export default function HomePage() {
         <div className="w-screen h-screen bg-gradient-to-br from-black via-zinc-900 to-blue-900 text-white">
             <div className="w-full h-full p-6 flex flex-col space-y-6 overflow-y-auto">
 
-                {/* Header/Profile */}
+                {/* Header/Profile
                 <div className="flex flex-col md:flex-row items-center justify-between">
                     <div className="flex items-center gap-4">
                         <img
-                            src="https://api.dicebear.com/7.x/thumbs/svg?seed=User"
+                            src="https://api.dicebear.com/7.x/icons/svg?seed=Quiz"
                             alt="Profile"
                             className="w-16 h-16 rounded-full border-2 border-blue-500"
                         />
                         <div>
-                            <h1 className="text-2xl font-bold text-blue-400">Welcome, {userName}</h1>
+                            <h1 className="text-xl md:text-xl font-bold text-blue-400">Welcome, {userName}</h1>
+
                             <p className="text-sm text-gray-400">Welcome to the Ultimate Quiz Challenge! Test your knowledge, beat the clock, and climb the leaderboard.</p>
                         </div>
                     </div>
 
-                    <button
-                        onClick={handleLogout}
-                        className="bg-red-600 hover:bg-red-700 w-full sm:w-auto px-4 mt-4 py-2 rounded-md text-sm font-medium text-black transition duration-300"
-                    >
-                        Logout
-                    </button>
+                    <Link to='/login'>
+                        <button
+                            onClick={handleLogout}
+                            className="bg-red-600 hover:bg-red-700 w-full sm:w-auto px-4 mt-4 py-2 rounded-md text-sm font-medium text-black transition duration-300"
+                        >
+                            Logout
+                        </button>
+                    </Link>
+                </div> */}
+
+
+                {/* Header/Profile */}
+                <div className="flex flex-col md:flex-row items-center justify-between">
+                    <div className="flex items-center gap-4">
+                        <img
+                            src="https://api.dicebear.com/7.x/icons/svg?seed=Quiz"
+                            alt="Profile"
+                            className="w-16 h-16 rounded-full border-2 border-blue-500"
+                        />
+                        <div>
+                            <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-blue-400">Welcome, {userName}</h1>
+                            <p className="text-sm text-gray-400">Welcome to the Ultimate Quiz Challenge! Test your knowledge, beat the clock, and climb the leaderboard.</p>
+                        </div>
+                    </div>
+
+                    <Link to='/login' className="w-full md:w-auto mt-4 md:mt-0">
+                        <button
+                            onClick={handleLogout}
+                            className="bg-red-600 hover:bg-red-700 w-full sm:w-auto px-4 py-2 rounded-md text-sm font-medium text-black transition duration-300"
+                        >
+                            Logout
+                        </button>
+                    </Link>
                 </div>
 
-                {/* Quiz Summary / Mini Statement */}
+
                 {/* Quiz Summary / Mini Statement */}
                 <div className="bg-black bg-opacity-30 border border-blue-700 p-4 rounded-lg">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-2">
