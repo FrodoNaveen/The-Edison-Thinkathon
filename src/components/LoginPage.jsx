@@ -119,7 +119,7 @@ export default function LoginPage() {
 
                         }}
 
-                        width={375} // may work in some cases
+                        width={380} // may work in some cases
                     />
 
 
