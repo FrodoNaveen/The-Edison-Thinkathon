@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
 
@@ -73,9 +73,8 @@ export default function LoginPage() {
                             <input type="checkbox" className="accent-blue-600" />
                             Remember me
                         </label>
-                        <a href="/resetpassword" className="hover:underline text-blue-500">
-                            Forgot password?
-                        </a>
+                        <Link to="/resetpassword"><p className="hover:underline text-blue-500">Forgot password?</p></Link>
+
                     </div>
 
                     <button
@@ -124,13 +123,9 @@ export default function LoginPage() {
 
 
                 </div>
-
-
                 <p className="mt-6 text-center text-sm text-blue-300">
                     Don’t have an account?{' '}
-                    <a href="/signup" className="text-blue-500 hover:underline">
-                        Sign up
-                    </a>
+                    <Link to='/signup'><p className="text-blue-500 hover:underline">Sing Up</p></Link>
                 </p>
             </div>
         </div>
