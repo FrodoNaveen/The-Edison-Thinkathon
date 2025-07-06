@@ -95,10 +95,10 @@ export default function App() {
     <div className="w-full">
       <Routes>
         {/* Public routes – redirect to /home if logged in */}
-        <Route path="/" element={<PublicRoute><LoginPage /></PublicRoute>} />
-        <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
-        <Route path="/signup" element={<PublicRoute><SignUpPage /></PublicRoute>} />
-        <Route path="/resetpassword" element={<PublicRoute><ResetPasswordPage /></PublicRoute>} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/resetpassword" element={<ResetPasswordPage />} />
 
         {/* Protected routes – must be logged in */}
         <Route path="/home" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
