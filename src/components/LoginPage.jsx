@@ -94,7 +94,7 @@ export default function LoginPage() {
                         Sign in with Google
                     </button> */}
 
-                    <div className="google-login-container">
+                    {/* <div className="google-login-container">
                         <GoogleLogin
                             onSuccess={(credentialResponse) => {
                                 console.log(credentialResponse)
@@ -120,10 +120,10 @@ export default function LoginPage() {
 
                         // may work in some cases
                         />
-                    </div>
+                    </div> */}
 
 
-                    {/* <div style={{ width: '100%' }}>
+                    <div style={{ width: '100%' }}>
                         <GoogleLogin
                             onSuccess={(credentialResponse) => {
                                 const credential = jwtDecode(credentialResponse.credential);
@@ -149,7 +149,7 @@ export default function LoginPage() {
                             shape="rectangular"
                             size="large"
                         />
-                    </div> */}
+                    </div>
 
 
 
