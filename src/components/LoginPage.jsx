@@ -94,38 +94,69 @@ export default function LoginPage() {
                         Sign in with Google
                     </button> */}
 
+                    {/* <div className="google-login-container">
+                        <GoogleLogin
+                            onSuccess={(credentialResponse) => {
+                                console.log(credentialResponse)
+                                console.log(jwtDecode(credentialResponse.credential))
 
-                    <GoogleLogin
-                        onSuccess={(credentialResponse) => {
-                            console.log(credentialResponse)
-                            console.log(jwtDecode(credentialResponse.credential))
+                                const credential = jwtDecode(credentialResponse.credential)
 
-                            const credential = jwtDecode(credentialResponse.credential)
+                                const userData = {
+                                    fullName: credential.name,
+                                    email: credential.email,
+                                    password: "",
+                                };
+                                console.log(`pppp ${JSON.stringify(userData)}`)
+                                try {
+                                    localStorage.setItem('user', JSON.stringify(userData));
+                                    localStorage.setItem('isLoggedIn', 'true');
+                                    navigate('/home');
+                                } catch (e) {
+                                    alert("Error while saving the data")
+                                }
 
-                            const userData = {
-                                fullName: credential.name,
-                                email: credential.email,
-                                password: "",
-                            };
-                            console.log(`pppp ${JSON.stringify(userData)}`)
-                            try {
-                                localStorage.setItem('user', JSON.stringify(userData));
-                                localStorage.setItem('isLoggedIn', 'true');
-                                navigate('/home');
-                            } catch (e) {
-                                alert("Error while saving the data")
-                            }
+                            }}
 
-                        }}
+                        // may work in some cases
+                        />
+                    </div> */}
 
-                    // may work in some cases
-                    />
+
+                    <div style={{ width: '100%' }}>
+                        <GoogleLogin
+                            onSuccess={(credentialResponse) => {
+                                const credential = jwtDecode(credentialResponse.credential);
+                                const userData = {
+                                    fullName: credential.name,
+                                    email: credential.email,
+                                    password: "",
+                                };
+
+                                try {
+                                    localStorage.setItem('user', JSON.stringify(userData));
+                                    localStorage.setItem('isLoggedIn', 'true');
+                                    navigate('/home');
+                                } catch (e) {
+                                    alert("Error while saving the data");
+                                }
+                            }}
+                            onError={() => {
+                                alert("Google Sign In Failed");
+                            }}
+                            useOneTap={false}
+
+                            shape="rectangular"
+                            size="large"
+                        />
+                    </div>
+
 
 
                 </div>
                 <p className="mt-6 text-center text-sm text-blue-300">
                     Don’t have an account?{' '}
-                    <Link to='/signup'><p className="text-blue-500 hover:underline">Sing Up</p></Link>
+                    <Link to='/signup' className="text-blue-500 hover:underline">Sing Up</Link>
                 </p>
             </div>
         </div>

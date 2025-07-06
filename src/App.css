@@ -1,1 +1,12 @@
 @import "tailwindcss";
+
+
+.google-login-container {
+    width: 100%;
+}
+
+.google-login-container div {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: start !important;
+}
