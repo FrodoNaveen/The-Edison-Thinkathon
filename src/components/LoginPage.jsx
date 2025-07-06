@@ -87,31 +87,33 @@ export default function LoginPage() {
 
                 <div className="mt-6">
                     <center>
-
                         <GoogleLogin
                             auto_select={false}
                             allowed_parent_origin={false}
                             use_fedcm_for_prompt={false}
                             onSuccess={(credentialResponse) => {
-                                console.log(credentialResponse)
-                                console.log(jwtDecode(credentialResponse.credential))
+                                const credential = jwtDecode(credentialResponse.credential);
+                                const googleEmail = credential.email;
 
-                                const credential = jwtDecode(credentialResponse.credential)
+                                const existingUser = JSON.parse(localStorage.getItem('user'));
 
-                                const userData = {
-                                    fullName: credential.name,
-                                    email: credential.email,
-                                    password: "",
-                                };
-                                console.log(`pppp ${JSON.stringify(userData)}`)
-                                try {
-                                    localStorage.setItem('user', JSON.stringify(userData));
+                                if (!existingUser) {
+                                    const newUser = {
+                                        fullName: credential.name,
+                                        email: googleEmail,
+                                        password: "", // Not needed for Google sign-in
+                                    };
+                                    localStorage.setItem('user', JSON.stringify(newUser));
                                     localStorage.setItem('isLoggedIn', 'true');
                                     navigate('/home');
-                                } catch (e) {
-                                    alert("Error while saving the data")
+                                } else {
+                                    if (existingUser.email === googleEmail) {
+                                        localStorage.setItem('isLoggedIn', 'true');
+                                        navigate('/home');
+                                    } else {
+                                        alert("User doesn't exist. Please create an account.");
+                                    }
                                 }
-
                             }}
                             width={"100%"}
                         />
