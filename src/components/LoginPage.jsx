@@ -24,7 +24,7 @@ export default function LoginPage() {
             } else if (
                 storedUser.email == email && storedUser.password == password
             ) {
-                localStorage.setItem('isLoggedIn', true);
+                localStorage.setItem('isLoggedIn', 'true');
                 navigate('/home');
             }
         }
@@ -95,33 +95,33 @@ export default function LoginPage() {
                         Sign in with Google
                     </button> */}
 
-                    <div className="w-full">
-                        <GoogleLogin
-                            onSuccess={(credentialResponse) => {
-                                console.log(credentialResponse)
-                                console.log(jwtDecode(credentialResponse.credential))
 
-                                const credential = jwtDecode(credentialResponse.credential)
+                    <GoogleLogin
+                        onSuccess={(credentialResponse) => {
+                            console.log(credentialResponse)
+                            console.log(jwtDecode(credentialResponse.credential))
 
-                                const userData = {
-                                    fullName: credential.name,
-                                    email: credential.email,
-                                    password: "",
-                                };
-                                console.log(`pppp ${JSON.stringify(userData)}`)
-                                try {
-                                    localStorage.setItem('user', JSON.stringify(userData));
-                                    localStorage.setItem('isLoggedIn', true);
-                                    navigate('/home');
-                                } catch (e) {
-                                    alert("Error while saving the data")
-                                }
+                            const credential = jwtDecode(credentialResponse.credential)
 
-                            }}
+                            const userData = {
+                                fullName: credential.name,
+                                email: credential.email,
+                                password: "",
+                            };
+                            console.log(`pppp ${JSON.stringify(userData)}`)
+                            try {
+                                localStorage.setItem('user', JSON.stringify(userData));
+                                localStorage.setItem('isLoggedIn', 'true');
+                                navigate('/home');
+                            } catch (e) {
+                                alert("Error while saving the data")
+                            }
 
-                            width="100%" // may work in some cases
-                        />
-                    </div>
+                        }}
+
+                        width="320px" // may work in some cases
+                    />
+
 
                 </div>
 

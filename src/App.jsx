@@ -9,7 +9,6 @@
 // import Summary from './components/Summary';
 // import NotFound from './components/PageNotFound';
 // import RetakeQuiz from './components/RetakePage';
-// import NoInternetPage from './components/NoInternetConnection';
 
 
 
@@ -21,16 +20,16 @@
 //   return (
 //     <div className='w-full'>
 //       <Routes>
-//         <Route path="/" element={isLoggedIn == 'true' ? <HomePage /> : <LoginPage />} />
+//         <Route path="/" element={<LoginPage />} />
 //         <Route path="*" element={<NotFound />} />
-//         <Route path="/login" element={isLoggedIn == 'true' ? <HomePage /> : <LoginPage />} />
-//         <Route path="/signup" element={isLoggedIn == 'true' ? <HomePage /> : <SignUpPage />} />
+//         <Route path="/login" element={<LoginPage />} />
+//         <Route path="/signup" element={<SignUpPage />} />
 //         <Route path="/home" element={<HomePage />} />
-//         <Route path="/resetpassword" element={isLoggedIn == 'true' ? <HomePage /> : <ResetPasswordPage />} />
+//         <Route path="/resetpassword" element={<ResetPasswordPage />} />
 //         <Route path="/quiz" element={<QuizPage />} />
 //         <Route path="/summary" element={<Summary />} />
 //         <Route path="/retake" element={<RetakeQuiz />} />
-//         <Route path="/no-internet" element={<NoInternetPage />} />
+//         {/* <Route path="/no-internet" element={<NoInternetPage />} /> */}
 //       </Routes>
 //     </div>
 //   )
@@ -39,10 +38,13 @@
 // export default App
 
 
+
+
+// App.jsx
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import LoginPage from './components/LoginPage';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import LoginPage from './components/LoginPage';
 import SignUpPage from './components/SignUpPage';
 import HomePage from './components/HomePage';
 import ResetPasswordPage from './components/ResetPassWord';
@@ -51,12 +53,12 @@ import Summary from './components/Summary';
 import NotFound from './components/PageNotFound';
 import RetakeQuiz from './components/RetakePage';
 import NoInternetPage from './components/NoInternetConnection';
+import ProtectedRoute from './components/ProtectedRoute';
+import PublicRoute from './components/PublicRoute';
 
-function App() {
-  const isLoggedIn = localStorage.getItem('isLoggedIn');
+export default function App() {
   const navigate = useNavigate();
   const location = useLocation();
-
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   useEffect(() => {
@@ -87,24 +89,26 @@ function App() {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
     };
-  }, [navigate, location]);
+  }, [location, navigate]);
 
   return (
-    <div className='w-full'>
+    <div className="w-full">
       <Routes>
-        <Route path="/" element={isLoggedIn === 'true' ? <HomePage /> : <LoginPage />} />
-        <Route path="/login" element={isLoggedIn === 'true' ? <HomePage /> : <LoginPage />} />
-        <Route path="/signup" element={isLoggedIn === 'true' ? <HomePage /> : <SignUpPage />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/resetpassword" element={isLoggedIn === 'true' ? <HomePage /> : <ResetPasswordPage />} />
-        <Route path="/quiz" element={<QuizPage />} />
-        <Route path="/summary" element={<Summary />} />
-        <Route path="/retake" element={<RetakeQuiz />} />
+        {/* Public routes – redirect to /home if logged in */}
+        <Route path="/" element={<PublicRoute><LoginPage /></PublicRoute>} />
+        <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
+        <Route path="/signup" element={<PublicRoute><SignUpPage /></PublicRoute>} />
+        <Route path="/resetpassword" element={<PublicRoute><ResetPasswordPage /></PublicRoute>} />
+
+        {/* Protected routes – must be logged in */}
+        <Route path="/home" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
+        <Route path="/quiz" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
+        <Route path="/summary" element={<ProtectedRoute><Summary /></ProtectedRoute>} />
+        <Route path="/retake" element={<ProtectedRoute><RetakeQuiz /></ProtectedRoute>} />
+
         <Route path="/no-internet" element={<NoInternetPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
 }
-
-export default App;
