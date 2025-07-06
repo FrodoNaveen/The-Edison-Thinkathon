@@ -97,7 +97,10 @@ export default function LoginPage() {
 
                                 const existingUser = JSON.parse(localStorage.getItem('user'));
 
-                                if (!existingUser) {
+                                if (existingUser.email === googleEmail) {
+                                    localStorage.setItem('isLoggedIn', 'true');
+                                    navigate('/home');
+                                } else {
                                     const newUser = {
                                         fullName: credential.name,
                                         email: googleEmail,
@@ -105,14 +108,8 @@ export default function LoginPage() {
                                     };
                                     localStorage.setItem('user', JSON.stringify(newUser));
                                     localStorage.setItem('isLoggedIn', 'true');
+                                    localStorage.removeItem('quizResults')
                                     navigate('/home');
-                                } else {
-                                    if (existingUser.email === googleEmail) {
-                                        localStorage.setItem('isLoggedIn', 'true');
-                                        navigate('/home');
-                                    } else {
-                                        alert("User doesn't exist. Please create an account.");
-                                    }
                                 }
                             }}
                             width={"100%"}
