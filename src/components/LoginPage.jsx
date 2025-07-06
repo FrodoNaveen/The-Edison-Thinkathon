@@ -86,43 +86,36 @@ export default function LoginPage() {
                 </form>
 
                 <div className="mt-6">
-                    {/* <button
-                        onClick={googleLogin}
-                        className="w-full flex items-center justify-center gap-3 bg-white text-black font-semibold py-2 rounded-md hover:bg-gray-200 transition duration-300"
-                    >
-                        <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google" className="w-5 h-5" />
-                        Sign in with Google
-                    </button> */}
+                    <center>
 
+                        <GoogleLogin
+                            auto_select={false}
+                            allowed_parent_origin={false}
+                            use_fedcm_for_prompt={false}
+                            onSuccess={(credentialResponse) => {
+                                console.log(credentialResponse)
+                                console.log(jwtDecode(credentialResponse.credential))
 
-                    <GoogleLogin
-                        auto_select={false}
-                        allowed_parent_origin={false}
-                        use_fedcm_for_prompt={false}
-                        onSuccess={(credentialResponse) => {
-                            console.log(credentialResponse)
-                            console.log(jwtDecode(credentialResponse.credential))
+                                const credential = jwtDecode(credentialResponse.credential)
 
-                            const credential = jwtDecode(credentialResponse.credential)
+                                const userData = {
+                                    fullName: credential.name,
+                                    email: credential.email,
+                                    password: "",
+                                };
+                                console.log(`pppp ${JSON.stringify(userData)}`)
+                                try {
+                                    localStorage.setItem('user', JSON.stringify(userData));
+                                    localStorage.setItem('isLoggedIn', 'true');
+                                    navigate('/home');
+                                } catch (e) {
+                                    alert("Error while saving the data")
+                                }
 
-                            const userData = {
-                                fullName: credential.name,
-                                email: credential.email,
-                                password: "",
-                            };
-                            console.log(`pppp ${JSON.stringify(userData)}`)
-                            try {
-                                localStorage.setItem('user', JSON.stringify(userData));
-                                localStorage.setItem('isLoggedIn', 'true');
-                                navigate('/home');
-                            } catch (e) {
-                                alert("Error while saving the data")
-                            }
-
-                        }}
-
-                    // may work in some cases
-                    />
+                            }}
+                            width={"100%"}
+                        />
+                    </center>
 
 
 
