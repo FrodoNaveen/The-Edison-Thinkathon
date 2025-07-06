@@ -97,6 +97,8 @@ export default function LoginPage() {
 
                     <GoogleLogin
                         auto_select={false}
+                        allowed_parent_origin={false}
+                        use_fedcm_for_prompt={false}
                         onSuccess={(credentialResponse) => {
                             console.log(credentialResponse)
                             console.log(jwtDecode(credentialResponse.credential))
