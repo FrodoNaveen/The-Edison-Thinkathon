@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function QuizSummaryPage() {
     const [quizResults, setQuizResults] = useState([]);
@@ -45,9 +45,11 @@ export default function QuizSummaryPage() {
 
     return (
         <div className="w-screen min-h-screen bg-gradient-to-br from-black via-zinc-900 to-blue-900 text-white p-6">
-            <h1 className="text-3xl font-bold mb-6 text-center text-blue-400">
-                📊 Quiz Summary
-            </h1>
+            <Link to='/home'>
+                <h1 className="text-3xl font-bold mb-6 text-center text-blue-400">
+                    📊 Quiz Summary
+                </h1>
+            </Link>
 
             {/* Legend */}
             <div className="mb-4 bg-zinc-800 border border-zinc-700 p-4 rounded-lg text-sm max-w-3xl mx-auto">
