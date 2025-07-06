@@ -94,62 +94,33 @@ export default function LoginPage() {
                         Sign in with Google
                     </button> */}
 
-                    {/* <div className="google-login-container">
-                        <GoogleLogin
-                            onSuccess={(credentialResponse) => {
-                                console.log(credentialResponse)
-                                console.log(jwtDecode(credentialResponse.credential))
 
-                                const credential = jwtDecode(credentialResponse.credential)
+                    <GoogleLogin
+                        auto_select={false}
+                        onSuccess={(credentialResponse) => {
+                            console.log(credentialResponse)
+                            console.log(jwtDecode(credentialResponse.credential))
 
-                                const userData = {
-                                    fullName: credential.name,
-                                    email: credential.email,
-                                    password: "",
-                                };
-                                console.log(`pppp ${JSON.stringify(userData)}`)
-                                try {
-                                    localStorage.setItem('user', JSON.stringify(userData));
-                                    localStorage.setItem('isLoggedIn', 'true');
-                                    navigate('/home');
-                                } catch (e) {
-                                    alert("Error while saving the data")
-                                }
+                            const credential = jwtDecode(credentialResponse.credential)
 
-                            }}
+                            const userData = {
+                                fullName: credential.name,
+                                email: credential.email,
+                                password: "",
+                            };
+                            console.log(`pppp ${JSON.stringify(userData)}`)
+                            try {
+                                localStorage.setItem('user', JSON.stringify(userData));
+                                localStorage.setItem('isLoggedIn', 'true');
+                                navigate('/home');
+                            } catch (e) {
+                                alert("Error while saving the data")
+                            }
 
-                        // may work in some cases
-                        />
-                    </div> */}
+                        }}
 
-
-                    <div style={{ width: '100%' }}>
-                        <GoogleLogin
-                            onSuccess={(credentialResponse) => {
-                                const credential = jwtDecode(credentialResponse.credential);
-                                const userData = {
-                                    fullName: credential.name,
-                                    email: credential.email,
-                                    password: "",
-                                };
-
-                                try {
-                                    localStorage.setItem('user', JSON.stringify(userData));
-                                    localStorage.setItem('isLoggedIn', 'true');
-                                    navigate('/home');
-                                } catch (e) {
-                                    alert("Error while saving the data");
-                                }
-                            }}
-                            onError={() => {
-                                alert("Google Sign In Failed");
-                            }}
-                            useOneTap={false}
-
-                            shape="rectangular"
-                            size="large"
-                        />
-                    </div>
+                    // may work in some cases
+                    />
 
 
 
