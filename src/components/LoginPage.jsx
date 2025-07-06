@@ -94,29 +94,35 @@ export default function LoginPage() {
                         <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google" className="w-5 h-5" />
                         Sign in with Google
                     </button> */}
-                    <GoogleLogin
 
-                        onSuccess={(credentialResponse) => {
-                            console.log(credentialResponse)
-                            console.log(jwtDecode(credentialResponse.credential))
+                    <div className="w-full">
+                        <GoogleLogin
+                            onSuccess={(credentialResponse) => {
+                                console.log(credentialResponse)
+                                console.log(jwtDecode(credentialResponse.credential))
 
-                            const credential = jwtDecode(credentialResponse.credential)
+                                const credential = jwtDecode(credentialResponse.credential)
 
-                            const userData = {
-                                fullName: credential.name,
-                                email: credential.email,
-                                password: "",
-                            };
-                            console.log(`pppp ${JSON.stringify(userData)}`)
-                            try {
-                                localStorage.setItem('user', JSON.stringify(userData));
-                                localStorage.setItem('isLoggedIn', true);
-                                navigate('/home');
-                            } catch (e) {
-                                alert("Error while saving the data")
-                            }
+                                const userData = {
+                                    fullName: credential.name,
+                                    email: credential.email,
+                                    password: "",
+                                };
+                                console.log(`pppp ${JSON.stringify(userData)}`)
+                                try {
+                                    localStorage.setItem('user', JSON.stringify(userData));
+                                    localStorage.setItem('isLoggedIn', true);
+                                    navigate('/home');
+                                } catch (e) {
+                                    alert("Error while saving the data")
+                                }
 
-                        }} />
+                            }}
+
+                            width="100%" // may work in some cases
+                        />
+                    </div>
+
                 </div>
 
 
