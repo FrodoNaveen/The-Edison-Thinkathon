@@ -79,7 +79,7 @@ export default function HomePage() {
                 <div className="flex flex-col md:flex-row items-center justify-between">
                     <div className="flex items-center gap-4">
                         <img
-                            src="https://api.dicebear.com/7.x/icons/svg?seed=Quiz"
+                            src="https://media.istockphoto.com/id/1332100919/vector/man-icon-black-icon-person-symbol.jpg?s=612x612&w=0&k=20&c=AVVJkvxQQCuBhawHrUhDRTCeNQ3Jgt0K1tXjJsFy1eg="
                             alt="Profile"
                             className="w-16 h-16 rounded-full border-2 border-blue-500"
                         />
